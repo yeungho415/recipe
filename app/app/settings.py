@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'drf_spectacular',
+    'rest_framework.authtoken',
+    'user',
+    'recipe',
     'core',
 ]
 
@@ -120,9 +125,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/static/'   # This will be used when generating URLs to your static files.
+MEDIA_URL = '/static/media/'    # This URL will be used when generating URLs to your media files.
+
+MEDIA_ROOT = '/vol/web/media'   # file system path that Django save user-uploaded media files to
+STATIC_ROOT = '/vol/web/static'   # # file system path that Django save static files to
+
+# STATIC_ROOT is for static files (CSS, JavaScript, design images) collected by the collectstatic
+# command, and MEDIA_ROOT is for user-uploaded files stored by FileField or ImageField.
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'core.User'  # get_user_model will referrer to this
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'COMPONENT_SPLIT_REQUEST': True,
+}
+
+# drf_spectacular is an extension for Django REST Framework (DRF)
+# that provides more advanced and comprehensive capabilities for generating
+# API schema definitions, which can be used for documentation.

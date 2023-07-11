@@ -10,6 +10,9 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
+      - dev-static-data:/vol/web
+      #  both kinds of files end up being stored in the dev-static-data Docker volume,
+      # but in different subdirectories (static and media)
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
@@ -33,5 +36,6 @@ services:
 
 volumes:
   dev-db-data:
+  dev-static-data:   # dev-static-data will contain image and other static file like css
 
 # can i say there are 2 server that for database and app
